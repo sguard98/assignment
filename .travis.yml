@@ -1,9 +1,26 @@
 language: node_js
-
 node_js:
-  - "10.9.0"
+  - 10.9.0
+
+env:
+  global:
+    - NOW_TOKEN=xZPpimgarBjYIli45AqdeSyq
 
 cache: npm
 
+install:
+  - npm install
+
+script:
+  - npm run build
+  - npm run test
+
 before_install:
-  - ls -la
+  - "npm config set spin false"
+  - npm i -g now
+
+deploy:
+  provider: script
+  script: bash scripts/deploy.sh
+  skip_cleanup: true
+
